@@ -1,0 +1,60 @@
+{
+    "name": "Match3Input",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "931111c1-0655-4dc8-bc92-9f2e4a3b2db5",
+            "actions": [
+                {
+                    "name": "Position",
+                    "type": "Value",
+                    "id": "e2460b2a-b2d0-436f-92ac-8b97d1e6395f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "670f7d3d-b97c-46d6-9aa6-aaea800e4e92",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5b6ca731-94bb-4165-a179-35dbe97be658",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Match3Scheme",
+                    "action": "Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c297dc7-013e-48a5-80c5-8b2675341e3e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Match3Scheme",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Match3Scheme",
+            "bindingGroup": "Match3Scheme",
+            "devices": []
+        }
+    ]
+}
