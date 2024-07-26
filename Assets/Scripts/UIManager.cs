@@ -10,7 +10,12 @@ public class UIManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = new UIManager();
+                instance = FindAnyObjectByType<UIManager>();
+                if (instance == null)
+                {
+                    var go = new GameObject(typeof(UIManager).Name + " Auto-generated");
+                    instance = go.AddComponent<UIManager>();
+                }
             }
             return instance;
         }

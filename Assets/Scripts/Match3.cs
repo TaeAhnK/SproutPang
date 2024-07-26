@@ -68,7 +68,7 @@ public class Match3 : MonoBehaviour
 
         FillEmpty();
 
-        if (NoMatch3Check())
+        if (GameManager.Instance.gameState == GameState.Playing && NoMatch3Check())
         {
             GameManager.Instance.UpdateGameState(GameState.GameOver);
         }

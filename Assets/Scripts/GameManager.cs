@@ -18,14 +18,19 @@ public class GameManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = new GameManager();
+                instance = FindAnyObjectByType<GameManager>();
+                if (instance == null)
+                {
+                    var go = new GameObject(typeof(GameManager).Name + " Auto-generated");
+                    instance = go.AddComponent<GameManager>();
+                }
             }
             return instance;
         }
     }
 
     // Game Elements
-    public Match3 match3;
+    //public Match3 match3;
     public Catcher catcher;
 
     // Game State

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SproutPang.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/HowTo.unity
+    guid: 061b41c6c996cc344b4740fd88f8f4ba
   m_configObjects: {}

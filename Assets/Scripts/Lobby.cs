@@ -7,4 +7,9 @@ public class Lobby : MonoBehaviour
     {
         SceneManager.LoadScene("SproutPang");
     }
+
+    public void OnClickHowToButton()
+    {
+        SceneManager.LoadScene("HowTo");
+    }
 }

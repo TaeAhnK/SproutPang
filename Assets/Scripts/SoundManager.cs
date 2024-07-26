@@ -17,7 +17,12 @@ public class SoundManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = new SoundManager();
+                instance = FindAnyObjectByType<SoundManager>();
+                if (instance == null)
+                {
+                    var go = new GameObject(typeof(SoundManager).Name + " Auto-generated");
+                    instance = go.AddComponent<SoundManager>();
+                }
             }
             return instance;
         }

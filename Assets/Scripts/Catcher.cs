@@ -15,7 +15,7 @@ public class CatcherConfig
     public const float MaxWatchingTime = 4f;
     public const float MinHomeTime = 3f;
     public const float MaxHomeTime = 8f;
-    public const float GracePeriod = 0.8f;
+    public const float GracePeriod = 0.4f;
     public const float CatcherSpeed = 3f;
     public static Vector3 CatcherDest = new Vector3(-6.94f, -3.3f, 0f);
 }

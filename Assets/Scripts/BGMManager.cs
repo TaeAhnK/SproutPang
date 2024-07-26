@@ -15,7 +15,12 @@ public class BGMManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = new BGMManager();
+                instance = FindAnyObjectByType<BGMManager>();
+                if (instance == null)
+                {
+                    var go = new GameObject(typeof(BGMManager).Name + " Auto-generated");
+                    instance = go.AddComponent<BGMManager>();
+                }
             }
             return instance;
         }
@@ -33,15 +38,18 @@ public class BGMManager : MonoBehaviour
         else
         {
             instance = this;
-        }
-        DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
 
-        GameManager.OnGameStateChanged += OnGameStateChanged;
+            GameManager.OnGameStateChanged += OnGameStateChanged;
+        }
     }
 
     private void Start()
     {
-        PlayBGM(BGMList.MainTheme);
+        if (!mainTheme.isPlaying)
+        {
+            PlayBGM(BGMList.MainTheme);
+        }
     }
 
     private void OnGameStateChanged(GameState state)
