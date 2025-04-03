@@ -29,7 +29,6 @@ public static class VegetableStateExtensions
             case VegetableState.Lv1:
                 return VegetableState.Lv2;
             case VegetableState.Lv2:
-                return VegetableState.Riped;
             case VegetableState.Riped:
                 return VegetableState.Riped;
             default:
@@ -38,7 +37,7 @@ public static class VegetableStateExtensions
     }
 }
 
-public class VegetableConfig
+public static class VegetableConfig
 {
     public const int VegNum = 4;
     public const float MinGrowTime = 5f;

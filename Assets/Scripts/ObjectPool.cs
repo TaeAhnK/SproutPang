@@ -5,7 +5,7 @@ public class ObjectPool
 {
     public GameObject prefab;
 
-    public Queue<GameObject> pool = new Queue<GameObject>();
+    private Queue<GameObject> pool = new Queue<GameObject>();
 
     public ObjectPool(GameObject prefab, int count)
     {
@@ -19,7 +19,7 @@ public class ObjectPool
 
     private GameObject CreateNewObject()
     {
-        if (prefab == null)
+        if (!prefab)
         {
             // Error
             return null;

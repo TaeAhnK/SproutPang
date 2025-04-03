@@ -6,42 +6,15 @@ public enum BGMList
     EndTheme
 }
 
-public class BGMManager : MonoBehaviour
+public class BGMManager : SubManager<BGMManager>
 {
-    private static BGMManager instance;
-    public static BGMManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindAnyObjectByType<BGMManager>();
-                if (instance == null)
-                {
-                    var go = new GameObject(typeof(BGMManager).Name + " Auto-generated");
-                    instance = go.AddComponent<BGMManager>();
-                }
-            }
-            return instance;
-        }
-    }
-
     [SerializeField] private AudioSource mainTheme;
     [SerializeField] private AudioSource endTheme;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-
-            GameManager.OnGameStateChanged += OnGameStateChanged;
-        }
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -52,27 +25,24 @@ public class BGMManager : MonoBehaviour
         }
     }
 
-    private void OnGameStateChanged(GameState state)
+    protected override void OnPlaying()
     {
-        switch (state)
+        StopBGM(BGMList.EndTheme);
+        if (!mainTheme.isPlaying)
         {
-            case GameState.Playing:
-                StopBGM(BGMList.EndTheme);
-                if (!mainTheme.isPlaying)
-                {
-                    PlayBGM(BGMList.MainTheme);
-                }
-                break;
-            case GameState.Caught:
-                StopBGM(BGMList.MainTheme);
-                break;
-            case GameState.GameOver:
-                StopBGM(BGMList.MainTheme);
-                PlayBGM(BGMList.EndTheme);
-                break;
-            default:
-                break;
+            PlayBGM(BGMList.MainTheme);
         }
+    }
+
+    protected override void OnCaught()
+    {
+        StopBGM(BGMList.MainTheme);
+    }
+
+    protected override void OnGameOver()
+    {
+        StopBGM(BGMList.MainTheme);
+        PlayBGM(BGMList.EndTheme);
     }
 
     public void PlayBGM(BGMList bgm)
@@ -104,5 +74,4 @@ public class BGMManager : MonoBehaviour
                 break;
         }
     }
-
 }

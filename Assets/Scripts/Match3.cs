@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
 
-public class Match3Config
+public static class Match3Config
 {
     public const int MinPopNum = 3;
 }
@@ -244,7 +244,7 @@ public class Match3 : MonoBehaviour
             for (int j = 0; j < grid.height; j++)
             {
                 Vector2Int temp = new Vector2Int(i, j);
-                if (grid.gridArray[temp.x, temp.y] == null
+                if (grid.gridArray[temp.x, temp.y] is null
                     || grid.gridArray[temp.x, temp.y].state != VegetableState.Riped)
                 {
                     return false;
@@ -276,7 +276,7 @@ public class Match3 : MonoBehaviour
                             Vector2Int temp = current + dir;
 
                             if (grid.IsValidPos(temp)
-                                && grid.gridArray[temp.x, temp.y] != null
+                                && grid.gridArray[temp.x, temp.y] is not null
                                 && !visited[temp.x, temp.y]
                                 && grid.gridArray[temp.x, temp.y].type == type
                                 && grid.gridArray[temp.x, temp.y].state == VegetableState.Riped)
@@ -317,7 +317,7 @@ public class Match3 : MonoBehaviour
         {
             for (int j = 0; j < grid.height; j++)
             {
-                if (grid.gridArray[i, j] == null)
+                if (grid.gridArray[i, j] is null)
                 {
                     SetElement(i, j, (VegetableType) UnityEngine.Random.Range(0, VegetableConfig.VegNum));
                 }
@@ -326,14 +326,14 @@ public class Match3 : MonoBehaviour
     }
 
     // Spawn/Destroy Vegetable in Grid
-    public void SetElement(int x, int y, VegetableType type)
+    private void SetElement(int x, int y, VegetableType type)
     {
         var veg = VegetableObjPool[type].GetObject();
         veg.transform.position = grid.GridToWorld(x, y, GridPoint.Center);
         grid.gridArray[x, y] = veg.GetComponent<Vegetable>();
     }
 
-    public void DestroyElement(int x, int y)
+    private void DestroyElement(int x, int y)
     {
         Vegetable veg = grid.gridArray[x, y];
         veg.Pop();

@@ -9,7 +9,7 @@ public enum CatcherState
     End
 }
 
-public class CatcherConfig
+public static class CatcherConfig
 {
     public const float MinWatchingTime = 2f;
     public const float MaxWatchingTime = 4f;
@@ -22,6 +22,8 @@ public class CatcherConfig
 
 public class Catcher : MonoBehaviour
 {
+    private static readonly int IsRunning = Animator.StringToHash("IsRunning");
+
     // Components
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -62,17 +64,20 @@ public class Catcher : MonoBehaviour
 
     private void OnGameStateChanged(GameState state)
     {
-        if (state == GameState.Caught)
+        switch (state)
         {
-            OnCaught();
-        }
-        else if (state == GameState.GameOver)
-        {
-            OnGameOver();
+            case GameState.Caught:
+                OnCaught();
+                break;
+            case GameState.GameOver:
+                OnGameOver();
+                break;
+            default:
+                break;
         }
     }
 
-    public void OnCaught()
+    private void OnCaught()
     {
         // Quit Vigilance
         if (vigilanceCoroutine != null)
@@ -83,13 +88,13 @@ public class Catcher : MonoBehaviour
 
         spriteRenderer.enabled = true;
         state = CatcherState.Caught;
-        animator.SetBool("IsRunning", true);
+        animator.SetBool(IsRunning, true);
     }
 
-    public void OnGameOver()
+    private void OnGameOver()
     {
         state = CatcherState.End;
-        animator.SetBool("IsRunning", false);
+        animator.SetBool(IsRunning, false);
 
         // Quit Vigilance
         if (vigilanceCoroutine != null)

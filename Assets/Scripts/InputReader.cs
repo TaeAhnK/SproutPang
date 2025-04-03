@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputReader : MonoBehaviour
+public class InputReader : SubManager<InputReader>
 {
     // Components
     [SerializeField] InputActionAsset playerInput;
@@ -15,9 +15,9 @@ public class InputReader : MonoBehaviour
 
     public Vector2 Selected => selectAction.ReadValue<Vector2>();
 
-    private void Awake()
+    protected override void Awake()
     {
-        GameManager.OnGameStateChanged += OnGameStateChanged;
+        base.Awake();
 
         var playerActionMap = playerInput.FindActionMap("Player");
         selectAction = playerActionMap.FindAction("Position");
@@ -25,53 +25,44 @@ public class InputReader : MonoBehaviour
 
         clickAction.performed += OnClick;
 
-        selectAction.Enable();
-        clickAction.Enable();
+        EnableInputs();
     }
-
-    private void OnGameStateChanged(GameState state)
+    
+    protected override void OnPlaying()
     {
-        switch (state)
-        {
-            case GameState.Playing:
-                OnPlaying();
-                break;
-            case GameState.Caught:
-                OnCaught();
-                break;
-            //case GameState.GameOver:
-            //    OnGameOver();
-            //    break;
-            default:
-                break;
-        }
+        // Enable Inputs on Start Game
+        EnableInputs();
     }
-
-    private void OnPlaying()
-    {
-        // Enalble Inputs on Start Game
-        selectAction.Enable();
-        clickAction.Enable();
-    }
-    private void OnCaught()
+    protected override void OnCaught()
     {
         // Disable Inputs on Caught
-        selectAction.Disable();
-        clickAction.Disable();
+        DisableInputs();
     }
 
-    //private void OnGameOver()
-    //{
-
-    //}
-
-    private void OnDestroy()
+    protected override void OnGameOver()
     {
+        DisableInputs();
+    }
+    
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        
         clickAction.performed -= OnClick;
+        DisableInputs();
+    }
 
+    private void EnableInputs()
+    {
+        selectAction.Enable();
+        clickAction.Enable();
+    }
+
+    private void DisableInputs()
+    {
         selectAction.Disable();
         clickAction.Disable();
     }
-
+    
     public void OnClick(InputAction.CallbackContext obj) => Click?.Invoke();
 }

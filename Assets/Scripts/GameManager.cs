@@ -16,10 +16,10 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if (instance == null)
+            if (!instance)
             {
                 instance = FindAnyObjectByType<GameManager>();
-                if (instance == null)
+                if (!instance)
                 {
                     var go = new GameObject(typeof(GameManager).Name + " Auto-generated");
                     instance = go.AddComponent<GameManager>();

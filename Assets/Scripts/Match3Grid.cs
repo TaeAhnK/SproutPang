@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Match3GridConfig
+public static class Match3GridConfig
 {
     public const int Width = 10;
     public const int Height = 8;
