@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using AYellowpaper.SerializedCollections;
+using UnityEngine.Search;
 
 public static class Match3Config
 {
@@ -15,7 +16,8 @@ public class Match3 : MonoBehaviour
     [SerializeField] private InputReader inputReader;
 
     // Elements
-    [SerializeField] private SerializedDictionary<VegetableType, GameObject> VegetableList = new SerializedDictionary<VegetableType, GameObject>();
+    [SerializeField] private  VegetableSetData vegetableSetData;
+    private SerializedDictionary<VegetableType, GameObject> VegetableList;
     private Dictionary<VegetableType, ObjectPool> VegetableObjPool = new Dictionary<VegetableType, ObjectPool>();
     [SerializeField] private GameObject highlighter;
 
@@ -34,6 +36,7 @@ public class Match3 : MonoBehaviour
         mainCamera = Camera.main;
         //GameManager.OnGameStateChanged += OnGameStateChanged;
         inputReader.Click += OnSelectVeg;
+        VegetableList = vegetableSetData.VegetableList;
 
         grid = new Match3Grid<Vegetable>(Match3GridConfig.Width,
             Match3GridConfig.Height,

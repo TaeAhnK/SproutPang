@@ -47,7 +47,7 @@ public static class VegetableConfig
 public class Vegetable : MonoBehaviour
 {
     [SerializeField] private Sprite[] sprites = new Sprite[4];
-    [SerializeField] private GameObject particle;
+    [SerializeField] public GameObject particle;
     private SpriteRenderer _spriteRenderer;
 
     public VegetableType type;
@@ -55,7 +55,8 @@ public class Vegetable : MonoBehaviour
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();    }
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     private void OnEnable()
     {
@@ -80,7 +81,8 @@ public class Vegetable : MonoBehaviour
 
     public void Pop()
     {
-        GameObject effect = Instantiate(particle, transform.position, Quaternion.identity);
-        Destroy(effect, 1f);
+        VegetableParticleManager.Instance.PlayParticle(type, transform.position, Quaternion.identity);
+        // GameObject effect = Instantiate(particle, transform.position, Quaternion.identity);
+        // Destroy(effect, 1f);
     }
 }
