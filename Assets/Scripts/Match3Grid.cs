@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class Match3GridConfig
@@ -14,7 +15,7 @@ public enum GridPoint
     Center
 }
 
-public class Match3Grid<T> where T : Object
+public class Match3Grid<T> where T : MonoBehaviour
 {
     public int width;
     public int height;
@@ -89,4 +90,22 @@ public class Match3Grid<T> where T : Object
     {
         return pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height;
     }
+
+    public void Swap(Vector2Int targetA, Vector2Int targetB)
+    {
+        if (!gridArray[targetA.x, targetA.y] || !gridArray[targetB.x, targetB.y]) return;
+        
+        var tempA = gridArray[targetA.x, targetA.y];
+        var tempAPos = gridArray[targetA.x, targetA.y].transform.position;
+
+        var tempB = gridArray[targetB.x, targetB.y];
+        var tempBPos = gridArray[targetB.x, targetB.y].transform.position;
+
+        gridArray[targetA.x, targetA.y] = tempB;
+        gridArray[targetB.x, targetB.y] = tempA;
+
+        gridArray[targetA.x, targetA.y].transform.position = tempAPos;
+        gridArray[targetB.x, targetB.y].transform.position = tempBPos;
+    }
+
 }

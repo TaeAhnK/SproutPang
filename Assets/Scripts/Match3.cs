@@ -172,18 +172,7 @@ public class Match3 : MonoBehaviour
     {
         if (grid.IsAdjacent(targetA, targetB))
         {
-            var tempA = grid.gridArray[targetA.x, targetA.y];
-            var tempAPos = grid.gridArray[targetA.x, targetA.y].transform.position;
-
-            var tempB = grid.gridArray[targetB.x, targetB.y];
-            var tempBPos = grid.gridArray[targetB.x, targetB.y].transform.position;
-
-            grid.gridArray[targetA.x, targetA.y] = tempB;
-            grid.gridArray[targetB.x, targetB.y] = tempA;
-
-            grid.gridArray[targetA.x, targetA.y].transform.position = tempAPos;
-            grid.gridArray[targetB.x, targetB.y].transform.position = tempBPos;
-            
+            grid.Swap(targetA, targetB);
             SoundManager.Instance.PlaySound(SoundType.dig);
         }
 
