@@ -2,7 +2,7 @@
 꼬꼬가 되어 냐옹의 작물을 훔치는 Match-3 게임입니다.
 
 ## 데모
-- [플레이 영상](https://www.youtube.com/embed/F2qwxJidN-w)
+- [플레이 영상](https://youtu.be/F2qwxJidN-w)
 - [웹 버전 바로가기](https://taeahnk.github.io/SproutPang/)
 
 ## 소개
