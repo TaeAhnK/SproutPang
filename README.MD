@@ -4,6 +4,7 @@
 ## 데모
 - [플레이 영상](https://youtu.be/F2qwxJidN-w)
 - [웹 버전 바로가기](https://taeahnk.github.io/SproutPang/)
+- [Windows Release](https://github.com/TaeAhnK/SproutPang/releases/tag/v1.2)
 
 ## 소개
 - 2024.07.17~2024.07.26 (2주, 이후 추가 리팩토링 진행)
@@ -15,3 +16,4 @@
 - 3개 이상 붙어 있는 다 자란 작물을 클릭하면 훔칠 수 있습니다.
 - 다 자라지 않은 작물은 클릭을 통해 옆에 있는 작물과 위치를 바꿀 수 있습니다.
 - 냐옹은 집을 들락거리며 꼬꼬를 감시합니다. 냐옹이 나왔을 때 클릭하면 게임이 종료됩니다.
+
