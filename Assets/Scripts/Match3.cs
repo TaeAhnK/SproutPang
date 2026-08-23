@@ -130,6 +130,11 @@ public class Match3 : MonoBehaviour
             {
                 HarvestTarget(gridPos);
             }
+            else
+            {
+                swapTarget = null;
+                highlighter.SetActive(false);
+            }
         }
         // CLicked Not Riped
         else

@@ -49,7 +49,7 @@ public class VegetableParticleManager : MonoBehaviour
         {
             if (vegObj.Value.TryGetComponent(out Vegetable veg))
             {
-                ParticleObjectPools.Add(vegObj.Key, new ObjectPool(veg.particle, 7));
+                ParticleObjectPools.Add(vegObj.Key, new ObjectPool(veg.particle, 12));
             }
         }
     }
@@ -57,9 +57,7 @@ public class VegetableParticleManager : MonoBehaviour
     public void PlayParticle(VegetableType vegetableType, Vector3 position, Quaternion rotation)
     {
         GameObject particleObject = ParticleObjectPools[vegetableType].GetObject();
-        particleObject.transform.position = position;
-        particleObject.transform.rotation = rotation;
-
+        particleObject.transform.SetPositionAndRotation(position, rotation);
         StartCoroutine(EraseParticle(vegetableType, particleObject, 1f));
     }
 

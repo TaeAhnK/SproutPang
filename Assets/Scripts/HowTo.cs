@@ -9,6 +9,8 @@ public class HowTo : MonoBehaviour
     private Image screenImage;
     private int index;
 
+    private bool _isLoading = false;
+
     private void Awake()
     {
         screenImage = screen.GetComponent<Image>();
@@ -22,6 +24,8 @@ public class HowTo : MonoBehaviour
 
     public void OnScreenClick()
     {
+        if (_isLoading) return;
+        
         index++;
         if (index < images.Length)
         {
@@ -29,7 +33,9 @@ public class HowTo : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Lobby");
+            _isLoading = true;
+            screen.interactable = false;
+            SceneManager.LoadSceneAsync("Lobby");
         }
     }
 }

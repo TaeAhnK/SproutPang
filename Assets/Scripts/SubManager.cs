@@ -22,16 +22,12 @@ public abstract class SubManager<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
-        instance = this as T;
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        else
-        {
-            instance = this as T;
-        }
+        instance = this as T;
 
         GameManager.OnGameStateChanged += OnGameStateChanged;
     }

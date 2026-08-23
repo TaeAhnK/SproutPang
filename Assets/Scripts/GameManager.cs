@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool _isLoading = false;
+
     // Game Elements
     //public Match3 match3;
     public Catcher catcher;
@@ -69,7 +71,10 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene("SproutPang");
+        if (_isLoading) return;
+    
+        _isLoading = true;
+        SceneManager.LoadSceneAsync("SproutPang");
     }
 
     public void AddScore(int value)

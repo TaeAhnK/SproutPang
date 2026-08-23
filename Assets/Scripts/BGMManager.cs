@@ -37,6 +37,14 @@ public class BGMManager : SubManager<BGMManager>
     protected override void OnCaught()
     {
         StopBGM(BGMList.MainTheme);
+
+        AudioClip clip = endTheme.clip;
+
+        if (clip != null &&
+            clip.loadState == AudioDataLoadState.Unloaded)
+        {
+            clip.LoadAudioData();
+        }
     }
 
     protected override void OnGameOver()

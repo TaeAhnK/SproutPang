@@ -11,9 +11,9 @@ public enum CatcherState
 
 public static class CatcherConfig
 {
-    public const float MinWatchingTime = 2f;
-    public const float MaxWatchingTime = 4f;
-    public const float MinHomeTime = 3f;
+    public const float MinWatchingTime = 1f;
+    public const float MaxWatchingTime = 1.5f;
+    public const float MinHomeTime = 4f;
     public const float MaxHomeTime = 8f;
     public const float GracePeriod = 0.4f;
     public const float CatcherSpeed = 3f;
@@ -52,9 +52,10 @@ public class Catcher : MonoBehaviour
         if (state == CatcherState.Caught)
         {
             float step = CatcherConfig.CatcherSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, CatcherConfig.CatcherDest, step);
+            Vector3 nextPosition = Vector3.MoveTowards(transform.position, CatcherConfig.CatcherDest, step);
+            transform.position = nextPosition;
 
-            if (Vector3.Distance(transform.position, CatcherConfig.CatcherDest) < 0.001f)
+            if ((nextPosition - CatcherConfig.CatcherDest).sqrMagnitude < 0.000001f)
             {
                 SoundManager.Instance.PlaySound(SoundType.caught);
                 GameManager.Instance.UpdateGameState(GameState.GameOver);
@@ -120,7 +121,7 @@ public class Catcher : MonoBehaviour
             state = CatcherState.Home;
             SoundManager.Instance.PlaySound(SoundType.door);
 
-            yield return new WaitForSeconds(UnityEngine.Random.Range(CatcherConfig.MinWatchingTime, CatcherConfig.MaxWatchingTime));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(CatcherConfig.MinHomeTime, CatcherConfig.MaxHomeTime));
 
             // Watching
             spriteRenderer.enabled = true;
